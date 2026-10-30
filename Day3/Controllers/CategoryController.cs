@@ -96,8 +96,14 @@ namespace Day3.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
+            var category = SeedClass.categories.FirstOrDefault(c => c.Id == id);
+            if (category == null)
+            {
+                return NotFound();
+            }
             try
             {
+                SeedClass.categories.Remove(category);
                 return RedirectToAction(nameof(Index));
             }
             catch
