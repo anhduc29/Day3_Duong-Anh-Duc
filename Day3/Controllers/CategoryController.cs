@@ -92,24 +92,19 @@ namespace Day3.Controllers
         }
 
         // POST: CategoryController/Delete/5
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult DeleteConfirmed ([FromRoute] int id)
         {
             var category = SeedClass.categories.FirstOrDefault(c => c.Id == id);
             if (category == null)
             {
                 return NotFound();
             }
-            try
-            {
+            
                 SeedClass.categories.Remove(category);
                 return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            
         }
     }
 }
